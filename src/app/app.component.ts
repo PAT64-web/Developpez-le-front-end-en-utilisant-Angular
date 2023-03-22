@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { OlympicService } from './core/services/olympic.service';
-
+import { CountryListComponent } from './country-list/country-list.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

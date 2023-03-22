@@ -1,0 +1,26 @@
+<p>country-list works! affichage liste sous forme de chart</p>
+<p> {{olympicCountries[0].country}} {{olympicCountries[0].totalMedals}}</p>
+<p> {{olympicCountries[1].country}} {{olympicCountries[1].totalMedals}}</p>
+
+<div class="pie-container">
+    <canvas id="MyChart">{{chart}}</canvas>   
+</div>
+
+<!-- <div class="container fill">
+    <igx-pie-chart
+    [dataSource]="energyGlobalDemand"
+    valueMemberPath="value"
+    labelMemberPath="summary"
+    legendLabelMemberPath="summary"
+    labelsPosition="OutsideEnd"
+    othersCategoryThreshold="10"
+    othersCategoryType="Number"
+    othersCategoryText="Others"
+    radiusFactor="0.7"
+    [legend]="legend"
+    labelExtent="30"
+    outlines="white"
+    name="chart"
+    #chart>
+    </igx-pie-chart>
+</div> -->
