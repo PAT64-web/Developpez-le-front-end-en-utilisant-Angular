@@ -1,1 +1,21 @@
-<p>detail-country works!</p>
+<div class="box_entete">
+    <p *ngIf="olympicCountry" class="data_entete">{{olympicCountry.country}}</p>    
+</div>
+<div class="box_detail">
+    <div class="box" id="entries">
+        <p>Number of entries</p>    
+        <div class="data_box">{{numberOfEntries}}</div>        
+    </div>
+    <div class="box" id="medals">
+        <p>Total number medals</p>            
+        <div class="data data_box">{{numberOfMedals}}</div>
+    </div>
+    <div class="box" id="athletes">
+        <p>Total number of athletes</p>            
+        <div class="data_box">{{numberOfAthletes}}</div>
+    </div>
+</div>
+<div class="box_chart"  width="600" height="200">          
+    <canvas id="line-chart">{{lineChart}}</canvas>         
+    <a routerLink="/olympic">Retour</a>        
+</div>

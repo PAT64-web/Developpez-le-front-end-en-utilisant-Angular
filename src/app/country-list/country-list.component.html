@@ -1,26 +1,57 @@
-<p>country-list works! affichage liste sous forme de chart</p>
-<p> {{olympicCountries[0].country}} {{olympicCountries[0].totalMedals}}</p>
-<p> {{olympicCountries[1].country}} {{olympicCountries[1].totalMedals}}</p>
-
-<div class="pie-container">
-    <canvas id="MyChart">{{chart}}</canvas>   
+<!-- <link href="angular-chart.css" src="angular-chart/angular-chart.min.js"></script> -->
+<div class="box_entete" id="box_country">
+    <p class="data_entete" >Medals per Country</p>    
+</div>
+<div class="box_data_country_entete">
+    <div class="box" id="entries">
+        <p>Number of JOs</p>    
+        <div class="data_box">{{numberOfJo}}</div>        
+    </div>
+    <div class="box" id="medals">
+        <p>Number of countries</p>            
+        <div class="data data_box">{{numberOfCountries}}</div>
+    </div>    
 </div>
 
-<!-- <div class="container fill">
-    <igx-pie-chart
-    [dataSource]="energyGlobalDemand"
-    valueMemberPath="value"
-    labelMemberPath="summary"
-    legendLabelMemberPath="summary"
+<div class="box_pie">
+    <canvas width="600" height="200" id="pie-country">{{pieChart}}</canvas>     
+</div>
+
+<div *ngIf="olympicCountries" class="box_pie">    
+    <canvas baseChart width="600" height="400" class="igx-pie-chart" 
+    [datasets]="olympicCountries"
+    valueMemberPath="totalMedals"
+    labelMemberPath="country"
+    legendLabelMemberPath="country"
     labelsPosition="OutsideEnd"
-    othersCategoryThreshold="10"
-    othersCategoryType="Number"
-    othersCategoryText="Others"
-    radiusFactor="0.7"
-    [legend]="legend"
-    labelExtent="30"
-    outlines="white"
-    name="chart"
-    #chart>
-    </igx-pie-chart>
-</div> -->
+    [type]="pieChart"            
+    (chartHover)="onChartHovered($event)"
+    (chartClick)="onChartClicked($event)"></canvas>
+
+    <button (click)="onViewOlympicCountry()">VIEW</button>
+</div>
+    
+    <!-- <canvas baseChart 
+            width="600" 
+            height="400"
+            type="pie"            
+            [datasets]="pieChartData"
+            [options]="pieChartOption"
+            ></canvas> -->
+ <!-- <igx-pie-chart
+          [dataSource]="energyGlobalDemand"
+          valueMemberPath="value"
+          labelMemberPath="summary"
+          legendLabelMemberPath="summary"
+          labelsPosition="OutsideEnd"
+          othersCategoryThreshold="10"
+          othersCategoryType="Number"
+          othersCategoryText="Others"
+          radiusFactor="0.7"
+          [legend]="legend"
+          labelExtent="30"
+          outlines="white"
+          name="chart"
+          #chart>
+           -->
+   

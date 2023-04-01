@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+.box_entete{
+    background-color:cornflowerblue;
+    border-radius: 10px;
+    
+    margin: 5px 5px 5px 5px;
+
+    height: fit-content;
+    padding-block: 5px;    
+    padding-inline-start: 10px;
+    padding-inline-end: 10px;
+    padding-top: 5px;
+    border-bottom: 15px;
+    text-align: center;    
+    font-size: 25px;
+    color: white;    
+}
+.box_detail{
+    display: flex;
+    margin-top: 5px;
+    justify-content: space-around;        
+}
+.box{
+    border: 2px solid;
+    border-color:cornflowerblue;
+    border-radius: 10px;
+    background-color: white;
+    padding: 5px;
+    text-align: center;
+}
+.data_box{
+    font-weight: bold;    
+}
+.data_entete{
+    // border-left: 5px;
+}
