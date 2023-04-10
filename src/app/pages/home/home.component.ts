@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Router} from "@angular/router";
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { CountryListComponent } from 'src/app/country-list/country-list.component';
 
 @Component({
   selector: 'app-home',
@@ -16,10 +15,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
-    // this.router.navigateByUrl('olympic');
   }
   
-  onContinue():void {
-    this.router.navigateByUrl('olympic');
-  }
 }

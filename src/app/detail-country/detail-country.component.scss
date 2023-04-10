@@ -1,7 +1,14 @@
-.box_chart{
-    // margin: 0 auto;
-    margin-left: 400px;
-    // margin-top: 15px;    
-    width:600px;
-    height:200px;
+#box_countryname{    
+    display: flex;
+    text-align: center;
+    width:fit-content;    
+    margin-left: auto;
+    margin-right: auto;
+    width:fit-content;
+    justify-content: center;
+}
+.box_line_chart{
+  width:80%;
+  margin-left: auto;
+  margin-right: auto;
 }

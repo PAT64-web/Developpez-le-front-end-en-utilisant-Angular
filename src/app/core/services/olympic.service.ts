@@ -19,8 +19,12 @@ export class OlympicService implements OnInit{
     return this.http.get<any>(this.olympicUrl).pipe(
       tap((value) => this.olympics$.next(value)),
       catchError((error, caught) => {
-        // TODO: improve error handling
-        console.error(error);
+        if (error.error instanceof Error) {
+          console.error('An error occurred:', error.error.error_description ||error.error.message  || error.statusText);
+        } else {
+          console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+        }
+
         // can be useful to end loading state and let the user know something went wrong
         this.olympics$.next(null);
         return caught;

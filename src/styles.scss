@@ -1,9 +1,7 @@
 .box_entete{
-    background-color:cornflowerblue;
-    border-radius: 10px;
-    
+    background-color:#009999;
+    border-radius: 10px;    
     margin: 5px 5px 5px 5px;
-
     height: fit-content;
     padding-block: 5px;    
     padding-inline-start: 10px;
@@ -12,16 +10,20 @@
     border-bottom: 15px;
     text-align: center;    
     font-size: 25px;
-    color: white;    
+    color: white;      
 }
+
 .box_detail{
-    display: flex;
-    margin-top: 5px;
-    justify-content: space-around;        
+    display:flex;
+    margin-top: 5px;    
+    margin-bottom: 5px;    
+    justify-content: space-around;  
+    place-content: center;
+    gap:20px;      
 }
 .box{
     border: 2px solid;
-    border-color:cornflowerblue;
+    border-color: #009999;
     border-radius: 10px;
     background-color: white;
     padding: 5px;
@@ -29,7 +31,4 @@
 }
 .data_box{
     font-weight: bold;    
-}
-.data_entete{
-    // border-left: 5px;
 }

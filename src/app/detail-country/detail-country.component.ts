@@ -19,36 +19,28 @@ export class DetailCountryComponent implements OnInit {
   public numberOfMedals:number=0;
   public numberOfAthletes:number=0;
   olympicCountries!: OlympicCountry[];
-  public oC!:any;
-
-     
+       
   constructor(private olympicService: OlympicService, private route: ActivatedRoute) {}
-    // constructor(private olympicService: OlympicService, ) { 
-    //   this.route.queryParams.subscribe(params => {
-    //     this.countryId = params.countryId;
-    //   });
-    // }
 
   ngOnInit(): void {
     const countryId = +this.route.snapshot.params['id'];    
-    // const countryId = 1 ;
     
     this.olympicService.getOlympics().subscribe((olympics) => {  
         this.olympicCountries = olympics;
-        if (this.olympicCountries !== undefined) {
-          this.oC = this.olympicCountries.find(o => o.id===countryId);                    
-          this.olympicCountry = this.oC;
-          
-          if (!this.olympicCountry){
+        if (this.olympicCountries !== undefined) {          
+          this.olympicCountry = <OlympicCountry>this.olympicCountries.find(o => o.id===countryId);
+
+          if (this.olympicCountry== undefined){
             throw new Error('Olympic not found');
           }        
           this.numberOfEntries= this.olympicCountry.participations.length;      
           for (let i=0;i<this.numberOfEntries; i++)
           {
-            this.numberOfMedals = +this.olympicCountry.participations[i].medalsCount;      
-            this.numberOfAthletes = +this.olympicCountry.participations[i].athleteCount;            
+            this.numberOfMedals += this.olympicCountry.participations[i].medalsCount;      
+            this.numberOfAthletes += this.olympicCountry.participations[i].athleteCount;            
           }    
-        
+
+          // affichage des données sous forme graphique
           this.createChart();
         }  
     });     
@@ -74,8 +66,7 @@ export class DetailCountryComponent implements OnInit {
               }
           }
       }    
-      },
-      
+      },      
     });
   }
 }

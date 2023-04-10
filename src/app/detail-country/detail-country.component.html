@@ -1,5 +1,5 @@
-<div class="box_entete">
-    <p *ngIf="olympicCountry" class="data_entete">{{olympicCountry.country}}</p>    
+<div class="box_entete" id="box_countryname">
+    <p *ngIf="olympicCountry">{{olympicCountry.country}}</p>    
 </div>
 <div class="box_detail">
     <div class="box" id="entries">
@@ -15,7 +15,7 @@
         <div class="data_box">{{numberOfAthletes}}</div>
     </div>
 </div>
-<div class="box_chart"  width="600" height="200">          
+<div class="box_line_chart"  width="600" height="200">          
     <canvas id="line-chart">{{lineChart}}</canvas>         
     <a routerLink="/olympic">Retour</a>        
 </div>

@@ -1,15 +1,11 @@
 #box_country{
-    margin-left: 400px;
-    margin-right: 400px;
-    margin-top: 15px;
-    
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;    
     font-size: 20px;
+    width: 165px;
 }
-.box_data_country_entete{   
-    display: flex;
-    margin-top: 15px;
-    
-    margin-inline-start: 250px;
-    margin-inline-end: 250px;
-    justify-content: space-around;        
+
+.box_pie_chart{
+    width:100%;
 }

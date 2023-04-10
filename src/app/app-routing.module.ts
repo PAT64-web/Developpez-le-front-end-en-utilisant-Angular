@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { LandingPageComponent } from './landing-page/landing-page.component';
 import { CountryListComponent } from './country-list/country-list.component';
 import { DetailCountryComponent} from './detail-country/detail-country.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    redirectTo: '/olympic',
+    pathMatch: 'full'
   } ,
-  { path: 'olympic/:id', 
+  { path: 'olympic/:id',
     component: DetailCountryComponent
   },
   {
@@ -19,7 +18,7 @@ const routes: Routes = [
     component: CountryListComponent,
   },  
   {
-    path: '**', // wildcard
+    path: '**', 
     component: NotFoundComponent,
   }
 ];
