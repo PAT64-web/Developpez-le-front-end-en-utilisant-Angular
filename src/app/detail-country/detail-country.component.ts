@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { ActivatedRoute} from "@angular/router";
+import { Subject, takeUntil} from 'rxjs';  
 
 import { OlympicCountry } from '../core/models/Olympic';
 import { OlympicService } from '../core/services/olympic.service';
@@ -10,11 +11,11 @@ import { OlympicService } from '../core/services/olympic.service';
   templateUrl: './detail-country.component.html',
   styleUrls: ['./detail-country.component.scss']
 })
-export class DetailCountryComponent implements OnInit {
-  
+export class DetailCountryComponent implements OnInit, OnDestroy {
+  private destroy$!: Subject<boolean>;   
   public olympicCountry!:OlympicCountry;
   public countryId!:number;   
-  public lineChart!: any;
+  public lineChart!: Chart;
   public numberOfEntries:number=0;
   public numberOfMedals:number=0;
   public numberOfAthletes:number=0;
@@ -22,10 +23,12 @@ export class DetailCountryComponent implements OnInit {
        
   constructor(private olympicService: OlympicService, private route: ActivatedRoute) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
+    this.destroy$ = new Subject();
+
     const countryId = +this.route.snapshot.params['id'];    
     
-    this.olympicService.getOlympics().subscribe((olympics) => {  
+    this.olympicService.getOlympics().pipe(takeUntil(this.destroy$)).subscribe((olympics) => {  
         this.olympicCountries = olympics;
         if (this.olympicCountries !== undefined) {          
           this.olympicCountry = <OlympicCountry>this.olympicCountries.find(o => o.id===countryId);
@@ -65,8 +68,12 @@ export class DetailCountryComponent implements OnInit {
                   color: 'rgb(255, 99, 132)'
               }
           }
-      }    
+        }    
       },      
     });
   }
+ 
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+  }  
 }

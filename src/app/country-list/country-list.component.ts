@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Chart} from 'chart.js/auto';
 import { Router} from "@angular/router";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
@@ -7,6 +7,7 @@ Chart.register(ChartDataLabels);
 
 import { OlympicCountry } from '../core/models/Olympic';
 import { OlympicService } from '../core/services/olympic.service';
+import { Subject, takeUntil} from 'rxjs';  
 
 @Component({
   selector: 'app-country-list',
@@ -14,43 +15,43 @@ import { OlympicService } from '../core/services/olympic.service';
   styleUrls: ['./country-list.component.scss']
 })
 
-export class CountryListComponent implements OnInit  {
-
+export class CountryListComponent implements OnInit, OnDestroy  {
+  private destroy$!: Subject<boolean>;
   public olympicCountries!: OlympicCountry[];
   public pieChart!: any;
-
   public numberOfJo!:number;
   public numberOfCountries!:number;
-
   public olympicCountry!:OlympicCountry;
   public countryId!:number;   
   
   constructor(private olympicService: OlympicService, private router: Router) {}
 
-  ngOnInit(){    
-    this.olympicService.getOlympics().subscribe((olympics) => {       
-        this.olympicCountries = olympics;    
-        if (this.olympicCountries !== undefined) {
-          this.numberOfCountries=this.olympicCountries.length;
-          this.numberOfJo=0;
+  ngOnInit(){      
+    this.destroy$ = new Subject();
+     
+    this.olympicService.getOlympics().pipe(takeUntil(this.destroy$)).subscribe((olympics) => {       
+      this.olympicCountries = olympics;    
+      if (this.olympicCountries !== undefined) {
+        this.numberOfCountries=this.olympicCountries.length;
+        this.numberOfJo=0;
 
-          // enrichissement propriétés de l'instance avec boucle sur les participations
-          for (let i=0;i< this.olympicCountries.length; i++)
-          {     
-            this.olympicCountries[i].totalMedals = 0;
-            for (let j=0;j<this.olympicCountries[i].participations.length; j++) {
-              this.olympicCountries[i].totalMedals += this.olympicCountries[i].participations[j].medalsCount;
-            }
-                       
-            if (this.numberOfJo<this.olympicCountries[i].participations.length) {
-              this.numberOfJo = this.olympicCountries[i].participations.length;      
-            }          
+        // enrichissement propriétés de l'instance avec boucle sur les participations
+        for (let i=0;i< this.olympicCountries.length; i++)
+        {     
+          this.olympicCountries[i].totalMedals = 0;
+          for (let j=0;j<this.olympicCountries[i].participations.length; j++) {
+            this.olympicCountries[i].totalMedals += this.olympicCountries[i].participations[j].medalsCount;
           }
-
-          // affichage des données sous forme graphique
-          this.createChart(); 
+                      
+          if (this.numberOfJo<this.olympicCountries[i].participations.length) {
+            this.numberOfJo = this.olympicCountries[i].participations.length;      
+          }          
         }
-      });       
+
+        // affichage des données sous forme graphique
+        this.createChart(); 
+        }
+    });       
   }    
 
   createChart(){       
@@ -114,8 +115,7 @@ export class CountryListComponent implements OnInit  {
             position: 'bottom'
           }                    
         }
-      }, 
-      
+      },       
     });      
   }
 
@@ -123,4 +123,8 @@ export class CountryListComponent implements OnInit  {
     this.olympicCountry = <OlympicCountry>this.olympicCountries.find(o => o.id===idCountry);    
     this.router.navigateByUrl(`olympic/${this.olympicCountry.id}`);
    }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+  }
 }
